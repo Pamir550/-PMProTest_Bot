@@ -90,7 +90,7 @@ def handle(message):
     if text == "/start":
         with lock:
             sessions[chat_id] = {"stage": "name"}
-        send(chat_id, "PMProTest_Bot\n\nТестировщик работает только в режиме READ-ONLY.\n\nОтправьте имя бота, который хотите протестировать.\n\nНапример: PMSignalPro")
+        send(chat_id, "Добро пожаловать! 👋\n\nЯ — PMSignalPro Tester\nБот для полной проверки вашего проекта на GitHub и Render (только чтение).\n\nДля начала отправьте:\n1. Имя вашего бота\n2. Username вашего бота\n\nНапример:\nИмя: PMSignalPro\nUsername: @PMSignalPro_bot")
         return
 
     with lock:
@@ -108,7 +108,7 @@ def handle(message):
         with lock:
             sessions[chat_id] = {"stage": "ready", "target": target, "session": session_id}
             jobs[session_id] = {"status": "ready", "progress": 0, "target": target}
-        send(chat_id, f"Данные сохранены.\n\nИмя: {target['name']}\nUsername: {target['username']}\n\nОткройте Mini App и нажмите «ТЕСТИРОВАТЬ».", mini_app_markup(session_id))
+        send(chat_id, f"Данные сохранены!\n\nИмя: {target['name']}\nUsername: {target['username']}\n\nТеперь откройте мини приложение для тестирования.", mini_app_markup(session_id))
         return
 
     if text == "/status":
