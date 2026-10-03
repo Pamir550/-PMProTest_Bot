@@ -40,7 +40,7 @@ def send(chat_id, text, reply_markup=None):
 
 
 def mini_app_markup(session_id):
-    url = f"{WEBAPP_URL}/?session={quote(session_id)}&ui=6"
+    url = f"{WEBAPP_URL}/?session={quote(session_id)}&ui=7"
     return {"inline_keyboard": [[{"text": "Открыть Mini App", "web_app": {"url": url}}]]}
 
 
