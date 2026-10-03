@@ -40,7 +40,7 @@ def send(chat_id, text, reply_markup=None):
 
 
 def mini_app_markup(session_id):
-    url = f"{WEBAPP_URL}/?session={quote(session_id)}"
+    url = f"{WEBAPP_URL}/?session={quote(session_id)}&ui=6"
     return {"inline_keyboard": [[{"text": "Открыть Mini App", "web_app": {"url": url}}]]}
 
 
@@ -147,7 +147,7 @@ def poll():
 
 @app.get("/")
 def root():
-    return send_from_directory(app.static_folder, "index.html")
+    response = send_from_directory(app.static_folder, "index.html")\n    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"\n    response.headers["Pragma"] = "no-cache"\n    return response
 
 
 @app.get("/health")
