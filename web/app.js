@@ -1,10 +1,11 @@
 const qs=new URLSearchParams(location.search),session=qs.get("session"),tg=window.Telegram?.WebApp;
-if(tg){tg.ready();tg.expand();tg.setHeaderColor("#020718");tg.setBackgroundColor("#020718")}
+if(tg){tg.ready();tg.expand();if(typeof tg.setHeaderColor==="function")tg.setHeaderColor("#020718");if(typeof tg.setBackgroundColor==="function")tg.setBackgroundColor("#020718")}
+
 const screen=document.getElementById("screen"),conn=document.getElementById("conn");
 let data=null,status=null,poll=null;
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 async function get(path){const r=await fetch(path);return r.json()}
-async function loadSession(){if(!session){conn.textContent="Нет сессии";return}const r=await get("/api/session?session="+encodeURIComponent(session));if(r.ok){conn.textContent="Сессия готова";data=r}else conn.textContent="Сессия недоступна"}
+async function loadSession(){if(!session){conn.textContent="Нет сессии";return}try{const r=await get("/api/session?session="+encodeURIComponent(session));if(r.ok){conn.textContent="Сессия готова";data=r}else conn.textContent="Сессия недоступна"}catch(e){conn.textContent="Ошибка соединения";console.error(e)}}
 async function start(){const r=await fetch("/api/test/start?session="+encodeURIComponent(session),{method:"POST"});if(!r.ok)return;clearInterval(poll);poll=setInterval(refresh,700);await refresh()}
 async function refresh(){status=await get("/api/test/status?session="+encodeURIComponent(session));render("home");if(status.status==="completed"||status.status==="failed"){clearInterval(poll);if(status.status==="completed"){const r=await get("/api/test/report?session="+encodeURIComponent(session));if(r.ok)data={...data,report:r.report};render("results")}}}
 function badge(s){return "<span class='badge "+(s==="PASS"?"pass":s==="WARNING"?"warning":s==="FAIL"?"failure":"not")+"'>"+esc(s)+"</span>"}
@@ -41,3 +42,5 @@ screen.innerHTML="<div class='screen'><div class='section-title'>GitHub и Rende
 async function historyScreen(){const r=await get("/api/test/history");screen.innerHTML="<div class='screen'><div class='section-title'>История проверок</div><div class='section-sub'>Последние результаты</div>"+((r.history||[]).length?(r.history||[]).map(h=>"<div class='card'><div class='row'><b>"+esc(h.target?.name||"Тест")+"</b><span class='ok'>✓</span></div><div class='mini'>PASS: "+h.summary.PASS+" · WARN: "+h.summary.WARNING+" · FAIL: "+h.summary.FAIL+"</div></div>").join(""):"<div class='card'>История пока пустая.</div>")+"</div>"}
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>render(b.dataset.screen));
 loadSession().then(()=>render("home"));
+
+window.addEventListener("error",e=>{console.error(e.error||e.message);if(screen)screen.innerHTML="<div class=\"screen\"><div class=\"card error\"><b>Ошибка загрузки Mini App</b><p class=\"mini\">"+esc(e.message||"JavaScript error")+"</p></div></div>"});
