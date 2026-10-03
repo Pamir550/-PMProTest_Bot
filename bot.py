@@ -5,7 +5,7 @@ import time
 from urllib.parse import quote
 
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 
 from ai_analyzer import analyze
 from qa_engine import run, summary
@@ -17,7 +17,8 @@ if not TOKEN:
 API = f"https://api.telegram.org/bot{TOKEN}"
 WEBAPP_URL = os.getenv("WEBAPP_URL", "https://pmprotest-bot-1.onrender.com/").strip().rstrip("/")
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=os.path.join(BASE_DIR, "web"), static_url_path="/static")
 sessions = {}
 jobs = {}
 history = []
@@ -146,7 +147,7 @@ def poll():
 
 @app.get("/")
 def root():
-    return "PMProTest_Bot is running"
+    return send_from_directory(app.static_folder, "index.html")
 
 
 @app.get("/health")
