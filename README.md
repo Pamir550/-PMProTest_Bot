@@ -1,21 +1,27 @@
 # PMProTest_Bot
 
-Separate read-only external QA tester.
+Read-only QA tester for a target Telegram bot/project.
 
-Architecture:
+Flow:
+1. In chat send /start.
+2. Send the target bot name.
+3. Send the target bot username.
+4. Open the Mini App.
+5. Press TEST.
+6. Review 41 categories, errors/warnings, GitHub/Render status and history.
 
-Telegram → Test Engine → Evidence Collector → 41 category checks → AI Analyzer → Telegram report
+The tester only reads target GitHub files, reads Render service/deploy information, and probes the target health endpoint. It does not contain target-project write, deploy, restart, environment-variable update, or file-edit operations.
 
-Environment variables on Render:
+Required environment variables:
+- TELEGRAM_BOT_TOKEN (secret)
+- TARGET_REPO
+- TARGET_URL
+- TARGET_RENDER_SERVICE_ID
+- RENDER_API_KEY (secret, read-only use)
+- GITHUB_TOKEN (secret if the target repository is private)
 
-- TELEGRAM_BOT_TOKEN — BotFather token. Secret.
-- TARGET_REPO — target GitHub repository, e.g. owner/repository.
-- GITHUB_TOKEN — optional read-only token if TARGET_REPO is private.
-- TARGET_URL — target service URL.
-- AI_API_KEY — AI provider API key. Secret.
-- AI_BASE_URL — OpenAI-compatible API base; default is Groq.
-- AI_MODEL — model name.
-
-The tester does not write to the target repository, deploy it, restart it, or change its settings.
-
-AI receives the collected evidence and is instructed not to invent test results. AI analysis is a second layer; PASS/FAIL/WARNING/NOT TESTED comes from the evidence collector.
+Optional:
+- WEBAPP_URL
+- AI_API_KEY
+- AI_BASE_URL
+- AI_MODEL
