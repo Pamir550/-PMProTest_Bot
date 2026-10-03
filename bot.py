@@ -147,7 +147,10 @@ def poll():
 
 @app.get("/")
 def root():
-    response = send_from_directory(app.static_folder, "index.html")\n    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"\n    response.headers["Pragma"] = "no-cache"\n    return response
+    response = send_from_directory(app.static_folder, "index.html")
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 
 @app.get("/health")
