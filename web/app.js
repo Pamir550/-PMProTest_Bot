@@ -1,9 +1,9 @@
-const p=new URLSearchParams(location.search),session=p.get("session"),tg=window.Telegram?.WebApp;
+function goHome(){home()}\nconst p=new URLSearchParams(location.search),session=p.get("session"),tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand()}
-const el=document.getElementById("screen"),conn=document.getElementById("conn");let data=null,status=null,timer=null;
+const el=document.getElementById("screen");let data=null,status=null,timer=null;
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 async function get(u){try{let r=await fetch(u,{cache:"no-store"});return await r.json()}catch(e){return {ok:false,error:e.message}}}
-async function sessionLoad(){let r=await get("/api/session?session="+encodeURIComponent(session||""));if(r.ok){data=r;conn.textContent="Сессия готова"}else conn.textContent="Сессия готова"}
+async function sessionLoad(){let r=await get("/api/session?session="+encodeURIComponent(session||""));if(r.ok){data=r}}
 function badge(s){return "<span class='badge "+(s==="PASS"?"pass":s==="WARNING"?"warning":s==="FAIL"?"failure":"notbadge")+"'>"+esc(s)+"</span>"}
 function nav(n){document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.s===n));({home,results,errors,infra,history}[n]||home)()}
 function quick(){return "<div class='quick'><button onclick='nav("results")'><span class='ico'>▥</span><small>Результаты</small></button><button onclick='nav("errors")'><span class='ico'>⚠</span><small>Ошибки</small></button><button onclick='nav("infra")'><span class='ico'>◉</span><small>GitHub</small></button><button onclick='nav("infra")'><span class='ico'>☁</span><small>Render</small></button></div>"}
