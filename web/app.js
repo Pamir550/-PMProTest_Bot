@@ -24,7 +24,7 @@ function badge(s){
 function goHome(){home()}
 function nav(name){
   setNav(name);
-  const fn={home,results,errors,infra,history}[name];
+  const fn={home,results,errors,infra,sections,history}[name];
   if(fn)fn();
 }
 function quick(){
