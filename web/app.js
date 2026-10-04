@@ -60,14 +60,14 @@ function home(){
   "</div></div>";
 }
 function process(){
-  const total=status?.total||41;
+  const total=status?.total||90;
   const n=status?.current||Math.round(total*(status?.progress||0)/100);
   const pct=Math.max(0,Math.min(100,status?.progress||0));
   const cats=(status?.categories||[]).slice(-10);
   const list=cats.length?cats.map((x,i)=>"<div class='row'><span><span class='num-dot'>"+esc(x.number||i+1)+"</span>"+esc(x.name||x.category||"Проверка")+"</span><span class='check'>"+(x.done?"✓":"○")+"</span></div>").join(""):"<div class='row'><span>1 <b>Структура проекта</b></span><span class='check'>✓</span></div><div class='row'><span>2 <b>Telegram Bot</b></span><span class='check'>✓</span></div><div class='row'><span>3 <b>Авторизация</b></span><span class='check'>○</span></div><div class='row'><span>4 <b>База данных</b></span><span class='check'>○</span></div><div class='row'><span>5 <b>Mini App</b></span><span class='check'>○</span></div>";
   screen.innerHTML="<div class='page'><div class='card'>"+
     "<div class='section-title'>Идёт полная проверка...</div>"+
-    "<div class='section-sub'>Проверяем все 41 категорию<br>вашего проекта.</div>"+
+    "<div class='section-sub'>Проверяем все 90 категорий<br>вашего проекта.</div>"+
     "<div class='progress-ring' style='--pct:"+pct+"%'><b>"+n+"/"+total+"<small style='display:block;text-align:center;font-size:12px;color:#c5d4e9'>"+pct+"%</small></b></div>"+
     "<div class='category-list'>"+list+"</div>"+
     "<div class='note'>ⓘ Проверка может занять несколько минут.<br>Бот анализирует файлы на GitHub, проверяет Render и все функции.</div>"+
@@ -103,14 +103,14 @@ function results(){
   const c=counts();
   screen.innerHTML="<div class='page'>"+
     "<div class='section-title'>🏆<br>Проверка завершена!</div>"+
-    "<div class='section-sub'>Все 41 категория проверены</div>"+
+    "<div class='section-sub'>Все 90 категорий проверены</div>"+
     "<div class='summary'>"+
       "<div class='stat'><span class='stat-icon pass'>✓</span><div><b>"+c.PASS+"</b><div class='muted'>PASS</div></div></div>"+
       "<div class='stat'><span class='stat-icon warning'>!</span><div><b>"+c.WARNING+"</b><div class='muted'>WARNING</div></div></div>"+
       "<div class='stat'><span class='stat-icon fail'>×</span><div><b>"+c.FAIL+"</b><div class='muted'>FAIL</div></div></div>"+
       "<div class='stat'><span class='stat-icon not'>●</span><div><b>"+c["NOT TESTED"]+"</b><div class='muted'>NOT TESTED</div></div></div>"+
     "</div>"+
-    "<div class='card'><div class='row'><span>▣ Всего категорий</span><b>41</b></div><div class='row'><span>◷ Время проверки</span><b>"+esc(r.duration||"—")+"</b></div><div class='row'><span>GitHub</span><b class='pass'>✓ Проверен</b></div><div class='row'><span>Render</span><b class='pass'>✓ Проверен</b></div><div class='row'><span>Последний запуск</span><b>"+esc(r.finished_at||"—")+"</b></div></div>"+
+    "<div class='card'><div class='row'><span>▣ Всего категорий</span><b>90</b></div><div class='row'><span>◷ Время проверки</span><b>"+esc(r.duration||"—")+"</b></div><div class='row'><span>GitHub</span><b class='pass'>✓ Проверен</b></div><div class='row'><span>Render</span><b class='pass'>✓ Проверен</b></div><div class='row'><span>Последний запуск</span><b>"+esc(r.finished_at||"—")+"</b></div></div>"+
     "<button class='btn' onclick='reportList()'>▤ Открыть полный отчёт</button>"+
     "<button class='btn warn-btn' onclick='errors()'>⚠ Список ошибок ("+c.FAIL+")</button>"+
   "</div>";
@@ -118,8 +118,8 @@ function results(){
 function reportList(){
   setNav("results");
   const cats=reportData();
-  screen.innerHTML="<div class='page'><div class='section-title'>Полный отчёт (41 категория)</div><div class='section-sub'>Результаты проверки всех категорий</div>"+
-    "<div class='tabs'><button class='tab active'>Все (41)</button><button class='tab'>PASS ("+counts().PASS+")</button><button class='tab'>WARN ("+counts().WARNING+")</button><button class='tab'>FAIL ("+counts().FAIL+")</button></div>"+
+  screen.innerHTML="<div class='page'><div class='section-title'>Полный отчёт (90 категорий)</div><div class='section-sub'>Результаты проверки всех категорий</div>"+
+    "<div class='tabs'><button class='tab active'>Все (90)</button><button class='tab'>PASS ("+counts().PASS+")</button><button class='tab'>WARN ("+counts().WARNING+")</button><button class='tab'>FAIL ("+counts().FAIL+")</button></div>"+
     "<div class='card' style='padding:5px'>"+cats.map((x,i)=>"<div class='report-row' onclick='detail("+Number(x.category||i+1)+")'><b>"+esc(x.category||i+1)+"</b><span>"+esc(x.name||"Категория")+"</span>"+badge(x.status)+"</div>").join("")+"</div></div>";
 }
 function detail(n){
@@ -164,7 +164,7 @@ async function history(){
 }
 function sections(){
   screen.innerHTML="<div class='page'><div class='section-title'>Меню разделов</div><div class='section-sub'>Выберите раздел для просмотра</div><div class='menu-grid'>"+
-    "<button class='menu-card' onclick='results()'><span class='big'>▥</span><b>Результаты</b><small>Полный отчёт по 41 категории</small></button>"+
+    "<button class='menu-card' onclick='results()'><span class='big'>▥</span><b>Результаты</b><small>Полный отчёт по 90 категориям</small></button>"+
     "<button class='menu-card' onclick='errors()'><span class='big'>⚠</span><b>Ошибки</b><small>Список всех проблем</small></button>"+
     "<button class='menu-card' onclick='reportList()'><span class='big'>▣</span><b>Файлы</b><small>Проверка проекта</small></button>"+
     "<button class='menu-card' onclick='infra()'><span class='big'>◉</span><b>GitHub</b><small>Статус, файлы, commit</small></button>"+
