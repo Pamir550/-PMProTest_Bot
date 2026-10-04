@@ -95,3 +95,94 @@ button{font:inherit;color:inherit}
 .note{padding:10px;border:1px solid #165387;border-radius:11px;background:#0a2343;color:#a9c1df;font-size:10px;line-height:1.4;margin-top:10px}
 .empty{text-align:center;color:#9db4d4;padding:25px 10px}
 @media(max-width:390px){.hero h1{font-size:23px}.launch{width:156px;height:156px}.bottom-nav small{font-size:8px}}
+
+
+/* HOME REFERENCE DESIGN: neon tester screen */
+.app.home-only{padding-bottom:0}
+.app.home-only .bottom-nav{display:none}
+.home-hero{
+  min-height:calc(100vh - 78px);
+  border-color:#315cff;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 50% 8%,rgba(37,91,255,.34),transparent 24%),
+    radial-gradient(circle at 8% 48%,rgba(0,119,255,.22),transparent 22%),
+    radial-gradient(circle at 92% 45%,rgba(255,0,153,.20),transparent 24%),
+    linear-gradient(145deg,#030c24 0%,#06153a 43%,#02091e 100%);
+  box-shadow:0 0 35px rgba(38,65,255,.35),inset 0 0 65px rgba(21,83,255,.12);
+  padding:28px 18px 70px;
+}
+.home-hero::before,.home-hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.8;
+}
+.home-hero::before{
+  background:
+    linear-gradient(45deg,transparent 0 21%,rgba(30,91,255,.23) 21.2%,transparent 21.7%),
+    linear-gradient(-45deg,transparent 0 72%,rgba(255,20,181,.18) 72.2%,transparent 72.8%),
+    linear-gradient(135deg,transparent 0 31%,rgba(0,212,255,.14) 31.2%,transparent 31.8%);
+}
+.home-hero::after{
+  background:radial-gradient(circle at 12% 34%,#1adfff 0 1px,transparent 2px),
+             radial-gradient(circle at 84% 38%,#ff28b5 0 1px,transparent 2px),
+             radial-gradient(circle at 25% 73%,#6b4cff 0 1px,transparent 2px),
+             radial-gradient(circle at 78% 78%,#18cfff 0 1px,transparent 2px);
+  background-size:170px 170px,210px 210px,190px 190px,230px 230px;
+}
+.home-hero > *{position:relative;z-index:2}
+.home-hero .search-logo{
+  width:112px;height:112px;border-radius:28px;margin:0 auto 28px;
+  background:linear-gradient(135deg,#bf36ff 0%,#5345ff 48%,#176eff 100%);
+  box-shadow:0 0 28px #214dff,0 0 60px rgba(137,32,255,.55);
+  position:relative;font-size:0;
+}
+.home-hero .search-logo::before{
+  content:"";position:absolute;width:34px;height:34px;border:7px solid white;border-radius:50%;
+  left:31px;top:27px;
+}
+.home-hero .search-logo::after{
+  content:"";position:absolute;width:28px;height:7px;border-radius:5px;background:white;
+  transform:rotate(-48deg);left:23px;top:64px;
+}
+.home-hero h1{font-size:30px;letter-spacing:-.6px}
+.home-hero .lead{font-size:17px;line-height:1.35;margin-top:10px}
+.home-hero .ro{font-size:13px;padding:8px 18px;border-radius:18px;margin:15px auto 11px;
+  box-shadow:0 0 18px rgba(74,65,255,.35)}
+.home-hero .hint{font-size:12px;margin-bottom:25px}
+.home-hero .target{
+  border-color:#198fff;border-radius:18px;padding:17px 70px 17px 92px;
+  min-height:104px;margin-bottom:26px;
+  background:linear-gradient(120deg,rgba(3,18,48,.92),rgba(2,10,28,.78));
+  box-shadow:0 0 18px rgba(0,127,255,.12),inset 0 0 28px rgba(0,93,255,.08);
+}
+.home-hero .target::before{
+  content:"🤖";position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  width:62px;height:62px;border-radius:17px;display:grid;place-items:center;font-size:37px;
+  background:linear-gradient(135deg,#172dff,#832cff);box-shadow:0 0 22px rgba(78,49,255,.55);
+}
+.home-hero .target-label{font-size:14px;margin-bottom:7px}
+.home-hero .target b{font-size:21px}
+.home-hero .target .username{font-size:15px}
+.home-hero .edit{width:50px;height:50px;border-radius:15px;font-size:22px}
+.home-hero .launch{
+  width:270px;height:270px;margin:14px auto 0;
+  border-width:10px;
+  background:
+    radial-gradient(circle at 35% 30%,rgba(101,44,255,.95),rgba(105,0,142,.72) 40%,rgba(210,0,72,.96) 100%) padding-box,
+    conic-gradient(from 205deg,#10e7ff,#6351ff,#ff25b6,#ff3d61,#10e7ff) border-box;
+  box-shadow:
+    0 0 0 9px rgba(35,71,255,.08),
+    0 0 32px rgba(22,115,255,.65),
+    0 0 68px rgba(255,19,174,.42),
+    inset 0 0 38px rgba(255,255,255,.09);
+  font-size:28px;
+  letter-spacing:.2px;
+  cursor:pointer;
+  transition:transform .18s ease,filter .18s ease;
+}
+.home-hero .launch:active{transform:scale(.97);filter:brightness(1.1)}
+@media(max-width:430px){
+  .home-hero{padding-left:14px;padding-right:14px}
+  .home-hero h1{font-size:27px}
+  .home-hero .lead{font-size:16px}
+  .home-hero .launch{width:250px;height:250px;font-size:27px}
+}
