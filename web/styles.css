@@ -228,3 +228,34 @@ button{font:inherit;color:inherit}
   .home-hero h1{font-size:27px}
   .home-hero .launch{width:250px;height:250px;font-size:27px}
 }
+
+/* Bottom navigation: keep home design unchanged, make all sections reachable. */
+.app.home-only{padding-bottom:82px;overflow:visible}
+.app.home-only .bottom-nav{
+  display:grid !important;
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:1000;
+  width:100%;
+  max-width:560px;
+  height:78px;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  background:rgba(2,10,24,.98);
+  border-top:1px solid #15538d;
+  border-radius:22px 22px 0 0;
+  padding:4px 3px env(safe-area-inset-bottom);
+  box-shadow:0 -8px 30px rgba(0,0,0,.35);
+}
+.app.home-only .bottom-nav button{
+  min-width:0;
+  padding:0 1px;
+  gap:4px;
+}
+.app.home-only .bottom-nav span{font-size:20px}
+.app.home-only .bottom-nav small{
+  font-size:8px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
