@@ -8,7 +8,7 @@ import requests
 from flask import Flask, jsonify, request, send_from_directory
 
 from ai_analyzer import analyze
-from qa_engine import run, summary
+from self_test_engine import run, summary
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 if not TOKEN:
