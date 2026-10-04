@@ -52,8 +52,7 @@ function home(){
     "<span class='ro'>READ-ONLY</span>"+
     "<div class='hint'>ⓘ Только проверка · Ничего не изменяет</div>"+
     targetCard()+
-    "<button class='launch' onclick='start()'><span class='rocket'>🚀</span><span>ТЕСТИРОВАТЬ</span><small>Полная проверка<br>(41 категория)</small></button>"+
-    quick()+
+    "<button class='launch' onclick='start()'><span>ТЕСТИРОВАТЬ</span></button>"+
   "</div></div>";
 }
 function process(){
