@@ -186,3 +186,45 @@ button{font:inherit;color:inherit}
   .home-hero .lead{font-size:16px}
   .home-hero .launch{width:250px;height:250px;font-size:27px}
 }
+
+
+/* Final home reference: remove the duplicated in-app title bar and use overlay controls. */
+.app.home-only{padding-bottom:0;overflow:hidden}
+.app.home-only .mini-head{display:none}
+.app.home-only .bottom-nav{display:none}
+.app.home-only #screen{padding:0}
+.home-hero{
+  min-height:100vh;
+  border-radius:24px;
+  border:1px solid #315cff;
+  padding:38px 18px 56px;
+  background:
+    radial-gradient(circle at 50% 9%,rgba(37,91,255,.34),transparent 24%),
+    radial-gradient(circle at 7% 48%,rgba(0,119,255,.22),transparent 23%),
+    radial-gradient(circle at 93% 47%,rgba(255,0,153,.21),transparent 25%),
+    linear-gradient(145deg,#030b22 0%,#06143a 44%,#02091e 100%);
+  box-shadow:0 0 35px rgba(38,65,255,.35),inset 0 0 65px rgba(21,83,255,.12);
+  overflow:hidden;
+}
+.home-hero .home-close,.home-hero .home-info{
+  position:absolute;top:14px;z-index:5;background:transparent;border:0;
+  color:#f5f8ff;line-height:1;
+}
+.home-hero .home-close{left:18px;font-size:40px;font-weight:300}
+.home-hero .home-info{right:18px;color:#20e0ff;font-size:25px}
+.home-hero .search-logo{
+  width:112px;height:112px;border-radius:28px;margin:18px auto 26px;
+}
+.home-hero h1{font-size:30px}
+.home-hero .lead{font-size:17px}
+.home-hero .target{margin-bottom:30px}
+.home-hero .launch{
+  width:270px;height:270px;margin:0 auto;
+  font-size:28px;
+}
+@media(max-width:430px){
+  .home-hero{padding-left:14px;padding-right:14px}
+  .home-hero .search-logo{width:106px;height:106px;margin-top:20px;margin-bottom:24px}
+  .home-hero h1{font-size:27px}
+  .home-hero .launch{width:250px;height:250px;font-size:27px}
+}
