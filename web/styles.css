@@ -99,7 +99,7 @@ button{font:inherit;color:inherit}
 
 /* HOME REFERENCE DESIGN: neon tester screen */
 .app.home-only{padding-bottom:0}
-.app.home-only .bottom-nav{display:none}
+.app.home-only .bottom-nav{display:grid}
 .home-hero{
   min-height:calc(100vh - 78px);
   border-color:#315cff;
@@ -189,7 +189,7 @@ button{font:inherit;color:inherit}
 
 
 /* Final home reference: remove the duplicated in-app title bar and use overlay controls. */
-.app.home-only{padding-bottom:0;overflow:hidden}
+.app.home-only{padding-bottom:76px;overflow:hidden}
 .app.home-only .mini-head{display:none}
 .app.home-only .bottom-nav{display:none}
 .app.home-only #screen{padding:0}
