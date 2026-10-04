@@ -239,7 +239,7 @@ button{font:inherit;color:inherit}
   width:100%;
   max-width:560px;
   height:78px;
-  grid-template-columns:repeat(6,minmax(0,1fr));
+  grid-template-columns:repeat(5,minmax(0,1fr));
   background:rgba(2,10,24,.98);
   border-top:1px solid #15538d;
   border-radius:22px 22px 0 0;
