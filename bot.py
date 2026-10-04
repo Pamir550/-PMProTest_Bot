@@ -75,11 +75,15 @@ def start_job(session_id):
 def update_progress(session_id, current, total, item):
     with lock:
         if session_id in jobs:
+            completed = jobs[session_id].setdefault("completed_categories", [])
+            if not completed or completed[-1].get("number") != current:
+                completed.append({"number": current, "name": item, "done": True})
             jobs[session_id].update({
                 "progress": int(current * 100 / max(total, 1)),
                 "current": current,
                 "total": total,
                 "current_name": item,
+                "categories": completed[-10:],
             })
 
 
@@ -195,7 +199,7 @@ def api_test_status():
         job = jobs.get(sid)
         if not job:
             return jsonify({"ok": False, "error": "session_not_found"}), 404
-        return jsonify({k: job.get(k) for k in ("status", "progress", "current", "total", "current_name", "error")})
+        return jsonify({k: job.get(k) for k in ("status", "progress", "current", "total", "current_name", "categories", "error")})
 
 
 @app.get("/api/test/report")
