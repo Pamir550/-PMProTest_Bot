@@ -130,18 +130,30 @@ def handle(message):
 
 def poll():
     offset = 0
+    try:
+        # This bot uses long polling; remove an old webhook so getUpdates can work.
+        tg("deleteWebhook", {"drop_pending_updates": False})
+        print("[telegram] polling initialized", flush=True)
+    except Exception as exc:
+        print(f"[telegram] webhook cleanup failed: {type(exc).__name__}: {exc}", flush=True)
+
     while True:
         try:
-            data = tg("getUpdates", {"timeout": 25, "offset": offset})
+            data = tg("getUpdates", {"timeout": 25, "offset": offset, "allowed_updates": ["message"]})
             for update in data.get("result", []):
                 offset = update["update_id"] + 1
                 message = update.get("message")
                 if message:
                     try:
                         handle(message)
-                    except Exception:
-                        send(message["chat"]["id"], "Ошибка обработки запроса. Проверьте Render logs.")
-        except Exception:
+                    except Exception as exc:
+                        print(f"[telegram] message handling failed: {type(exc).__name__}: {exc}", flush=True)
+                        try:
+                            send(message["chat"]["id"], "Ошибка обработки запроса. Проверьте Render logs.")
+                        except Exception as send_exc:
+                            print(f"[telegram] error reply failed: {type(send_exc).__name__}: {send_exc}", flush=True)
+        except Exception as exc:
+            print(f"[telegram] getUpdates failed: {type(exc).__name__}: {exc}", flush=True)
             time.sleep(5)
 
 
