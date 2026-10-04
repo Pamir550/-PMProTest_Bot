@@ -15,6 +15,7 @@ async function sessionLoad(){
 }
 function setNav(name){
   document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.toggle("active",b.dataset.screen===name));
+  if(name!=="home") document.querySelector(".app")?.classList.remove("home-only");
 }
 function badge(s){
   const c=s==="PASS"?"PASS":s==="WARNING"?"WARNING":s==="FAIL"?"FAIL":"NOT";
@@ -44,9 +45,10 @@ function targetCard(){
 }
 function home(){
   setNav("home");
-  if(status?.status==="running"){screen.innerHTML=process();return}
-  screen.innerHTML="<div class='page'><div class='hero'>"+
-    "<div class='search-logo'>⌕</div>"+
+  document.querySelector(".app")?.classList.add("home-only");
+  if(status?.status==="running"){document.querySelector(".app")?.classList.remove("home-only");screen.innerHTML=process();return}
+  screen.innerHTML="<div class='page'><div class='hero home-hero'>"+
+    "<div class='search-logo'><span></span></div>"+
     "<h1>PMSignalPro Tester</h1>"+
     "<div class='lead'>Полная проверка вашего бота<br>на GitHub и Render</div>"+
     "<span class='ro'>READ-ONLY</span>"+
